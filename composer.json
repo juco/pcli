@@ -1,0 +1,12 @@
+{
+	"autoload": {
+		"psr-0": {
+			"juco": ""
+		}
+	},
+
+	"require": {
+		"kevinlebrun/colors.php": "*",
+		"illuminate/database": "*"
+	}
+}
