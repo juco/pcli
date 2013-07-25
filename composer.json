@@ -6,7 +6,6 @@
 	},
 
 	"require": {
-		"kevinlebrun/colors.php": "*",
 		"illuminate/database": "*"
 	}
 }
