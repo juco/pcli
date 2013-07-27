@@ -1,5 +1,7 @@
 <?php namespace juco\cli;
 
+use juco\cli\command\Command;
+
 class Interpreter
 {
 	protected static $self = null;
@@ -14,7 +16,7 @@ class Interpreter
 		return static::$self;
 	}
 
-	public function process(array $argv)
+    public function process(array $argv)
 	{
 		$this->args = $argv;
 		
@@ -46,11 +48,8 @@ class Interpreter
 	protected function getMethod()
 	{
 		if (count($this->args) > 0) {
-			$name = array_shift($this->args);
-			return preg_replace_callback('/-([a-z])/', function($match) { 
-				return strtoupper($match[1]); 
-			}, $name);
-		}
+            return Command::toMethodName(array_shift($this->args));
+        }
 
 		return 'help';
 	}

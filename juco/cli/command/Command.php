@@ -27,6 +27,13 @@ abstract class Command
      */
     public abstract function helpSummary();
 
+    public static function toMethodName($command)
+    {
+        return preg_replace_callback('/-([a-z])/', function ($match) {
+            return strtoupper($match[1]);
+        }, $command);
+    }
+
 	protected function isHelpSwitch($switch) 
 	{
 		return in_array($switch, self::$helpCommands);
@@ -60,18 +67,6 @@ abstract class Command
 		return $classNames;
 	}
 
-	private function isAllowedCommandFile($className)
-	{
-		// If one of the last 2 chars are . it's likely a Unix CWD
-		if (strrpos($className, '.') <= 1) {
-			return false;
-		}
-
-		$ignoreNames = array('Command.php');
-
-		return !in_array($className, $ignoreNames);
-	}
-
     protected function getSwitches(array $args)
     {
         $switches = array();
@@ -87,5 +82,17 @@ abstract class Command
     protected function hasSwitch($switch, $switches)
     {
         return in_array($switch, $this->getSwitches($switches));
+    }
+
+    private function isAllowedCommandFile($className)
+    {
+        // If one of the last 2 chars are . it's likely a Unix CWD
+        if (strrpos($className, '.') <= 1) {
+            return false;
+        }
+
+        $ignoreNames = array('Command.php');
+
+        return !in_array($className, $ignoreNames);
     }
 }
