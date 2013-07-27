@@ -1,4 +1,4 @@
-Juco CLI
+pcli
 ========
 
-Juco Cli tool
+An extendible Cli tool written in PHP
