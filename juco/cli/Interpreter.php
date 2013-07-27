@@ -33,10 +33,10 @@ class Interpreter
 
 	protected function getObject()
 	{
-		$className = 'juco\\cli\\command\\NoCommand';
+		$className = __NAMESPACE__.'\\command\\NoCommand';
 
 		if (count($this->args) > 0) {
-			$_className = 'juco\\cli\\command\\'.ucfirst(array_shift($this->args));
+			$_className = __NAMESPACE__.'\\command\\'.ucfirst(array_shift($this->args));
 			if (class_exists($_className)) {
 				$className = $_className;
 			}

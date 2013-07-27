@@ -2,10 +2,10 @@
 
 abstract class Command
 {
-	protected static $helpCommands = array(
-		'-h',
-		'help'
-	);
+    protected static $helpCommands = array(
+        '-h',
+        'help'
+    );
 
     /**
      * Run the command where no known sub-command has been specified
@@ -34,38 +34,38 @@ abstract class Command
         }, $command);
     }
 
-	protected function isHelpSwitch($switch) 
-	{
-		return in_array($switch, self::$helpCommands);
-	}
+    protected function isHelpSwitch($switch)
+    {
+        return in_array($switch, self::$helpCommands);
+    }
 
-	protected function getCommandInstances()
-	{
-		$instances = array();
-		foreach ($this->getCommandClassNames() as $className) {
-			$object = new $className;
-			if (is_subclass_of($object, '\\juco\\cli\\command\\Command')) {
-				$instances[] = $object;
-			}
-		}
+    protected function getCommandInstances()
+    {
+        $instances = array();
+        foreach ($this->getCommandClassNames() as $className) {
+            $object = new $className;
+            if (is_subclass_of($object, '\\juco\\cli\\command\\Command')) {
+                $instances[] = $object;
+            }
+        }
 
-		return $instances;
-	}
+        return $instances;
+    }
 
-	private function getCommandClassNames()
-	{
-		$classNames = array();
+    private function getCommandClassNames()
+    {
+        $classNames = array();
 
-		if ($handle = opendir(__DIR__)) {
-			while (($name = readdir($handle)) !== false) {
-				if ($this->isAllowedCommandFile($name)) {
-					$classNames[] = __NAMESPACE__.'\\'.current(explode('.', $name));
-				}
-			}
-		}
+        if ($handle = opendir(__DIR__)) {
+            while (($name = readdir($handle)) !== false) {
+                if ($this->isAllowedCommandFile($name)) {
+                    $classNames[] = __NAMESPACE__ . '\\' . current(explode('.', $name));
+                }
+            }
+        }
 
-		return $classNames;
-	}
+        return $classNames;
+    }
 
     protected function getSwitches(array $args)
     {
